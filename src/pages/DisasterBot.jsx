@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { callOpenAI } from '../API/openai'; // Adjust this based on your file structure
+import { useState } from "react";
+import { callOpenAI } from "../API/openai"; // Adjust this based on your file structure
 
 const DisasterBot = () => {
-  const [query, setQuery] = useState('');
-  const [response, setResponse] = useState('');
+  const [query, setQuery] = useState("");
+  const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
@@ -11,12 +11,13 @@ const DisasterBot = () => {
     if (loading || !query.trim()) return;
 
     setLoading(true);
-    setResponse(''); // Clear previous response
+    setResponse(""); // Clear previous response
     try {
       const botResponse = await callOpenAI(query);
       setResponse(botResponse);
     } catch (error) {
-      setResponse('Error occurred. Please try again.');
+      console.error(error);
+      setResponse("Error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -33,10 +34,10 @@ const DisasterBot = () => {
           placeholder="Ask about disaster preparation..."
         />
         <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Ask the Bot'}
+          {loading ? "Loading..." : "Ask the Bot"}
         </button>
       </form>
-      {response && <p>Bot's response: {response}</p>}
+      {response && <p>Bot&apos;s response: {response}</p>}
     </div>
   );
 };
