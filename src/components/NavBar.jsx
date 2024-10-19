@@ -7,7 +7,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <ul>
-        <li>Made with 💗</li>
+        <li>
+          <strong>SEMA</strong> @ PlutoHacks 🌈
+        </li>
       </ul>
       <ul>
         <li>
