@@ -53,7 +53,8 @@ const NearbyGasStations = ({ latitude, longitude }) => {
 
   return (
     <article>
-      <h2>Nearby Gas Stations</h2>
+      <h5 className="text-center">NEARBY GAS STATIONS</h5>
+      <hr />
       {validStations.length > 0 ? (
         <ul>
           {validStations.map((station) => (

@@ -31,7 +31,7 @@ const Home = () => {
       </section>
 
       {coordinates.latitude && coordinates.longitude && (
-        <div className="info-section">
+        <div className="info">
           <WeatherAlerts
             latitude={coordinates.latitude}
             longitude={coordinates.longitude}

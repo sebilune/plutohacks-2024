@@ -41,7 +41,7 @@ const WeatherAlerts = ({ latitude, longitude }) => {
 
   return (
     <article>
-      <h2>Severe Weather Alerts</h2>
+      <h5 className="text-center">WEATHER WARNINGS</h5>
       {alerts.length > 0 ? (
         alerts.map((alert, index) => (
           <div key={index} className="alert">
