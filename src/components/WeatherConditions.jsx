@@ -1,72 +1,63 @@
-import { useState, useEffect, useCallback } from "react";
-import PropTypes from "prop-types";
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "chart.js/auto";
 
-const WeatherConditions = ({ latitude, longitude }) => {
+const WeatherConditions = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [address, setAddress] = useState("");
+  const [location, setLocation] = useState([25.7617, -80.1918]); // Default to Miami
 
-  // Getting the API key from Vite environment variables
-  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY; // Replace with your API key
 
-  const fetchWeatherData = useCallback(async () => {
-    if (!latitude || !longitude) return;
-
+  const fetchWeatherData = async (latitude, longitude) => {
+    setLoading(true);
+    setError(null);
     try {
-      console.log("Fetching weather data!");
-      setLoading(true);
-      setError(null);
-
-      // Debugging: Log the API key to verify it's loading correctly
-      console.log("API Key: ", apiKey);
-
       const response = await fetch(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?unitGroup=us&include=current%2Cdays%2Chours%2Calerts%2Cevents&key=${apiKey}&contentType=json`
       );
-
-      if (!response.ok) {
-        throw new Error(`Error fetching weather data: ${response.statusText}`);
-      }
-
       const data = await response.json();
       setWeatherData(data);
-
-      // Fetch the address associated with latitude and longitude
       fetchAddress(latitude, longitude);
-    } catch (err) {
-      console.error("Error in fetchWeatherData:", err);
-      setError("Failed to fetch weather data. Please check the API key and try again.");
+    } catch {
+      setError("Failed to fetch weather data");
     } finally {
       setLoading(false);
     }
-  }, [latitude, longitude, apiKey]);
+  };
 
-  const fetchAddress = useCallback(async (lat, lon) => {
+  const fetchAddress = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       );
-      if (!response.ok) {
-        throw new Error("Error fetching address");
-      }
       const data = await response.json();
       setAddress(data.display_name);
-    } catch (err) {
-      console.error("Error in fetchAddress:", err);
-      setError("Failed to fetch address.");
+    } catch {
+      setError("Failed to fetch address");
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      fetchWeatherData();
+  const getLocationAndFetchWeather = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation([latitude, longitude]);
+          fetchWeatherData(latitude, longitude); // Fetch weather for user's location
+        },
+        (error) => {
+          setError("Geolocation failed: " + error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
     }
-  }, [latitude, longitude, fetchWeatherData]);
+  };
 
   const buildGraphData = () => {
     if (!weatherData || !weatherData.days) return null;
@@ -87,34 +78,50 @@ const WeatherConditions = ({ latitude, longitude }) => {
     };
   };
 
-  if (loading) return <span aria-busy="true">Fetching Weather Data...</span>;
-  if (error) return <div>{error}</div>;
-
   return (
-    <article>
-      <h5 className="text-center">
-        WEATHER CONDITIONS
-        <button onClick={fetchWeatherData} className="outline refetch-btn">
-          Refetch
-        </button>
-      </h5>
-      <hr />
+    <div>
+      <h1>Weather Conditions Near You</h1>
+      <button onClick={getLocationAndFetchWeather}>Show Weather Data</button>
+
+      {loading && <p>Loading weather data...</p>}
+      {error && <p>{error}</p>}
 
       {weatherData && (
         <div>
           <h3>Your Location: {address}</h3>
-          {/* Small Map Display */}
-          <MapContainer center={[latitude, longitude]} zoom={10} style={{ height: "200px", width: "100%" }}>
+          <p>
+            Latitude: {location[0]}, Longitude: {location[1]}
+          </p>
+
+          <h3>Weather Alerts: </h3>
+          {weatherData.alerts && weatherData.alerts.length > 0 ? (
+            <ul>
+              {weatherData.alerts.map((alert, index) => (
+                <li key={index}>
+                  <strong>{alert.event}</strong>: {alert.description}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No dangerous weather alerts found.</p>
+          )}
+
+          {/* Reduced-size Map */}
+          <MapContainer
+            center={location}
+            zoom={10}
+            style={{ height: "200px", width: "100%" }}
+          >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={[latitude, longitude]}>
+            <Marker position={location}>
               <Popup>Your Location</Popup>
             </Marker>
           </MapContainer>
 
-          {/* Temperature Chart */}
+          {/* Chart displaying temperature for the next few days */}
           {buildGraphData() && (
             <Line
               data={buildGraphData()}
@@ -130,13 +137,8 @@ const WeatherConditions = ({ latitude, longitude }) => {
           )}
         </div>
       )}
-    </article>
+    </div>
   );
-};
-
-WeatherConditions.propTypes = {
-  latitude: PropTypes.number,
-  longitude: PropTypes.number,
 };
 
 export default WeatherConditions;
