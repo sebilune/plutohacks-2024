@@ -28,7 +28,6 @@ function App() {
           <Route path="/summary" element={<Summary />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/disaster-bot" element={<DisasterBot />} />
-
         </Routes>
       </div>
     </Router>
