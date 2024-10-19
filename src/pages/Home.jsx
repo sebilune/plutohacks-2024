@@ -69,10 +69,8 @@ const Home = () => {
       )}
 
       {coordinates.latitude && coordinates.longitude && (
-        <div className="container">
-          <div className="text-center">
-            <button onClick={generatePdf}>Download Report as PDF</button>
-          </div>
+        <div className="pdf-btn-container text-center">
+          <button onClick={generatePdf}>Download Report as PDF</button>
         </div>
       )}
     </div>

@@ -5,7 +5,7 @@ const Summary = () => {
   return (
     <>
       <div className="summary">
-        <section className="hero">
+        <section className="summary-hero">
           <h1>
             <div className="img-container">
               <img
@@ -46,14 +46,9 @@ const Summary = () => {
                 description="Our goal is to create a user-friendly platform that provides timely information and essential resources, enabling users to make informed decisions during crises. We hope SEMA offers valuable insights that empower users to make the best choices, including timely evacuation, ultimately protecting lives from life-threatening situations."
               />
               <hr />
-              <Accordion
-                title="Challenges ⚡"
-                description= ""/>
+              <Accordion title="Challenges ⚡" description="" />
               <hr />
-              <Accordion
-                title="Finale 🎉"
-                description=""
-              />
+              <Accordion title="Finale 🎉" description="" />
             </article>
           </div>
         </section>
