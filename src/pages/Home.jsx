@@ -22,7 +22,7 @@ const Home = () => {
               Welcome to SEMA,
               <div></div>Your solution for disaster preparedness.
             </h1>
-            <p className="text-center">All we need is a location!</p>
+            <p className="text-center">All we need is your location!</p>
           </hgroup>
           <div className="stacked location-btn">
             <LocationButton onLocationRetrieved={handleLocationRetrieved} />
