@@ -1,7 +1,7 @@
 /* Floating Chat Bubble Container */
 .chat-bubble-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 35px;
   right: 35px; /* Keep bubble on the right */
   display: flex;
   flex-direction: row-reverse; /* Place prompt on the left of the bubble */
