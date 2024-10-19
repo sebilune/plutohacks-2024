@@ -12,7 +12,7 @@ const DisasterBot = () => {
   const [conversation, setConversation] = useState([
     {
       role: "assistant",
-      content: "Hey, welcome to Disaster Bot AI! How can I help you today?",
+      content: "Hey, welcome to your RescueBot AI! How can I help you today?",
     },
   ]);
 
@@ -75,7 +75,9 @@ const DisasterBot = () => {
         <div className="chatbot-modal">
           <div className="modal">
             <header>
-              <h2>Disaster Bot</h2>
+              
+              <h2> Prevention Starts with Knowledge  RescueBot AI</h2>
+            
               <button className="close-button" onClick={toggleChat}>
                 ✖
               </button>
