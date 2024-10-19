@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IconMapPin } from "@tabler/icons-react";
 import PropTypes from "prop-types";
 
 const LocationButton = ({ onLocationRetrieved }) => {
@@ -53,7 +54,9 @@ const LocationButton = ({ onLocationRetrieved }) => {
       <button
         onClick={getLocation}
         disabled={loadingLocation || locationFetched}
+        className="icon-btn"
       >
+        <IconMapPin size={30} color="white" />
         {loadingLocation ? "Fetching..." : "Get my location!"}
       </button>
     </div>
