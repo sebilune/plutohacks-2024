@@ -20,15 +20,16 @@ function App() {
     <Router>
       <div className="container">
         <Navbar />
+        <DisasterBot />
+
       </div>
       <div className="container">
         <Routes>
           <Route path="*" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} /> {/* Add Home route */}
+          <Route path="/home" element={<Home />} /> 
           <Route path="/summary" element={<Summary />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/disaster-bot" element={<DisasterBot />} />
-
+        
         </Routes>
       </div>
     </Router>

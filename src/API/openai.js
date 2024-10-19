@@ -12,7 +12,7 @@ export async function callOpenAI(prompt) {
           { role: 'system', content: 'You are a helpful assistant.' },
           { role: 'user', content: prompt },
         ],
-        max_tokens: 50,
+        max_tokens: 100,
       }),
     });
 
