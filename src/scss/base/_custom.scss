@@ -1,0 +1,3 @@
+*:has(> details:last-child) details {
+  margin-bottom: 0; // Removes annoying bottom margin from last accordion
+}

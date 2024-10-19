@@ -1,0 +1,32 @@
+.hero {
+  margin-top: 3.5rem;
+}
+
+.summary p {
+  max-width: 35rem;
+  margin: 0 auto;
+}
+
+.project-accordions {
+  margin-top: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+
+  details {
+    width: 30rem;
+  }
+}
+
+.navbar {
+  ul {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    li {
+      height: 100%;
+    }
+  }
+}

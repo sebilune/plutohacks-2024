@@ -1,0 +1,13 @@
+@use "../base/colors" as *;
+
+.text-center {
+  text-align: center;
+}
+
+.orange-gradient {
+  background: linear-gradient(to right, $orange-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: 400% 100%;
+}

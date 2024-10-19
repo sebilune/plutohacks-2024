@@ -1,0 +1,11 @@
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.pluto-img {
+  padding: 1rem;
+  width: 50%;
+  height: auto;
+  max-width: 100%; /* Ensures it doesn't overflow its container */
+}

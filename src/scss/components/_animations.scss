@@ -1,0 +1,28 @@
+@use "../base/colors" as *;
+
+.anim-blue {
+  background: linear-gradient(to right, $blurple-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-animation 12s linear infinite;
+  background-size: 400% 100%;
+}
+
+.anim-rainbow {
+  background: linear-gradient(to right, $rainbow-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-animation 12s linear infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
