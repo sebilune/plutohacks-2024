@@ -4,16 +4,31 @@ import PropTypes from "prop-types";
 const LocationButton = ({ onLocationRetrieved, className }) => {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [error, setError] = useState(null);
+  const [cachedLocation, setCachedLocation] = useState(null); // Cache for user's location
 
+  // Function to retrieve location
   const getLocation = () => {
+    // If location is already cached, use it
+    if (cachedLocation) {
+      onLocationRetrieved(cachedLocation.latitude, cachedLocation.longitude);
+      return;
+    }
+
     setLoadingLocation(true);
     setError(null);
 
     if (navigator.geolocation) {
+      console.log("Getting location!");
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          onLocationRetrieved(latitude, longitude); // Pass coordinates up to parent component
+
+          // Cache the location
+          setCachedLocation({ latitude, longitude });
+
+          // Pass the location up to the parent component
+          onLocationRetrieved(latitude, longitude);
+          console.log("Location retrieved! ", latitude, longitude);
           setLoadingLocation(false);
         },
         () => {

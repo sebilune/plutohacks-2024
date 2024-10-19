@@ -22,6 +22,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
       `;
 
       try {
+        console.log("Fetching gas stations!");
         setLoading(true);
         setError(null);
         const response = await axios.post(

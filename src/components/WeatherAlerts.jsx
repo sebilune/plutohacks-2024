@@ -15,6 +15,7 @@ const WeatherAlerts = ({ latitude, longitude }) => {
       const url = `https://api.weatherbit.io/v2.0/alerts?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
 
       try {
+        console.log("Fetching weather alerts!");
         setLoading(true);
         setError(null);
         const response = await fetch(url);
