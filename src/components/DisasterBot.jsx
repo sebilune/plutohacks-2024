@@ -107,7 +107,7 @@ const DisasterBot = () => {
         <div className="chatbot-modal">
           <div className="modal">
             <header>
-              <h2> Prevention Starts with Knowledge - RescueBot AI</h2>
+              <h2> Prevention Starts with Knowledge | Learn with our new RescueBot AI</h2>
               <button className="close-button" onClick={toggleChat}>
                 ✖
               </button>
