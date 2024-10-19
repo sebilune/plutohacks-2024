@@ -38,19 +38,13 @@ const Summary = () => {
             <article>
               <Accordion
                 title="Project Overview 📖"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-              animi rem vero saepe totam odio dicta iste accusantium explicabo
-              ut! Exercitationem, cupiditate nostrum itaque perspiciatis
-              voluptates illo ut eius illum."
+                description="SEMA is an all-in-one emergency preparedness platform designed to keep users informed and safe during disasters. It provides real-time weather notifications sourced from the National Weather Service, ensuring timely alerts about severe weather conditions. SEMA highlights nearby shelters, displays the nearest gas stations, and features a chatbot for quick access to disaster-related information."
                 isOpen={true}
               />
               <hr />
               <Accordion
                 title="Our Vision 👓"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-              animi rem vero saepe totam odio dicta iste accusantium explicabo
-              ut! Exercitationem, cupiditate nostrum itaque perspiciatis
-              voluptates illo ut eius illum."
+                description="Our goal is to create a user-friendly platform that provides timely information and essential resources, enabling users to make informed decisions during crises. We hope SEMA offers valuable insights that empower users to make the best choices, including timely evacuation, ultimately protecting lives from life-threatening situations."
               />
               <hr />
               <Accordion
