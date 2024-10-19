@@ -43,7 +43,7 @@ const WeatherAlerts = ({ latitude, longitude }) => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <article>
       <h2>Severe Weather Alerts</h2>
       {alerts.length > 0 ? (
         alerts.map((alert, index) => (
@@ -70,7 +70,7 @@ const WeatherAlerts = ({ latitude, longitude }) => {
       ) : (
         <p>No weather alerts available for this location.</p>
       )}
-    </div>
+    </article>
   );
 };
 

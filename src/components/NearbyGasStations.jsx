@@ -55,7 +55,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
   );
 
   return (
-    <div>
+    <article>
       <h2>Nearby Gas Stations</h2>
       {validStations.length > 0 ? (
         <ul>
@@ -81,7 +81,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
       ) : (
         <p>No gas stations found for this location.</p>
       )}
-    </div>
+    </article>
   );
 };
 

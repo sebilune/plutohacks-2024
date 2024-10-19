@@ -7,6 +7,16 @@
   margin: 0 auto;
 }
 
+article {
+  & {
+    max-width: 40rem;
+  }
+}
+
+.info {
+  margin-top: 4rem;
+}
+
 .project-accordions {
   margin-top: 4rem;
   display: flex;

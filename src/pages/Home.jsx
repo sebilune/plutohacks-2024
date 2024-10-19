@@ -1,6 +1,6 @@
 import { useState } from "react";
 import WeatherAlerts from "../components/WeatherAlerts";
-import NearbyRestaurants from "../components/NearbyRestaurants";
+import NearbyGasStations from "../components/NearbyGasStations";
 import LocationButton from "../components/LocationButton";
 
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div>
       <section className="hero">
-        <section id="home" className="centerd">
+        <section id="home">
           <hgroup className="text-center">
             <h1>
               Welcome to SEMA,
@@ -27,18 +27,20 @@ const Home = () => {
           <div className="stacked location-btn">
             <LocationButton onLocationRetrieved={handleLocationRetrieved} />
           </div>
+          <main className="stacked info">
+            <WeatherAlerts
+              latitude={coordinates.latitude}
+              longitude={coordinates.longitude}
+            />
+            <NearbyGasStations
+              latitude={coordinates.latitude}
+              longitude={coordinates.longitude}
+            />
+          </main>
         </section>
       </section>
 
       {/* Pass coordinates to NearbyRestaurants and WeatherAlerts */}
-      <NearbyRestaurants
-        latitude={coordinates.latitude}
-        longitude={coordinates.longitude}
-      />
-      <WeatherAlerts
-        latitude={coordinates.latitude}
-        longitude={coordinates.longitude}
-      />
     </div>
   );
 };
