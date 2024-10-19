@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IconRobot } from '@tabler/icons-react'; // Import the Tabler Icons Robot
-import { callOpenAI } from '../API/openai'; // Adjust based on your file structure
+import { callOpenAI } from './openai'; // Adjust based on your file structure
 
 const DisasterBot = () => {
   const [query, setQuery] = useState('');
