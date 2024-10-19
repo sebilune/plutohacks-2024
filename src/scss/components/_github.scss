@@ -1,0 +1,69 @@
+.github-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.git-name {
+  visibility: hidden;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.331);
+  margin-bottom: 5px;
+}
+
+.github-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+.github-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.github-item:hover .git-name {
+  visibility: visible;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.331);
+  animation: pop-in 0.5s forwards;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.github-logo {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s;
+  margin: 8px;
+  overflow: visible;
+}
+
+.github-logo img {
+  width: 60px;
+}
+
+.github-logo:hover {
+  transform: scale(1.2);
+  background: radial-gradient(
+    circle,
+    rgba(198, 95, 155, 0.05) 0%,
+    rgba(106, 90, 205, 0.1) 20%,
+    rgba(255, 105, 105, 0) 80%
+  );
+}
+
+.github-logo:hover::before {
+  opacity: 0.7;
+}
