@@ -6,6 +6,14 @@
   transition: background 0.3s;
 }
 
+.pdf-btn-container {
+  button {
+    width: 100%;
+    max-width: 40rem;
+  }
+  margin-bottom: 3rem;
+}
+
 .location-btn {
   margin-top: 2rem;
 }
