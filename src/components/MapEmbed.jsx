@@ -9,7 +9,7 @@ const MapEmbed = ({ place_name, latitude, longitude }) => {
         height="200"
         src={`https://www.google.com/maps/embed/v1/place?key=${
           import.meta.env.VITE_MAPS_API_KEY
-        }&q=${place_name}@${latitude},${longitude}`}
+          }&q=${latitude},${longitude}`}
         allowFullScreen
         title={place_name}
       ></iframe>
