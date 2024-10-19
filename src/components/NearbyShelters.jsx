@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import MapEmbed from './MapEmbed';
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import MapEmbed from "./MapEmbed";
 
 // Haversine formula to calculate distance between two lat/lon points
 const getDistance = (lat1, lon1, lat2, lon2) => {
@@ -11,14 +11,16 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
   const dLon = toRadians(lon2 - lon1);
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.cos(toRadians(lat1)) *
+      Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Distance in kilometers
   return distance;
 };
 
-const NearbyShelters = ({ userLatitude, userLongitude }) => {
+const NearbyShelters = ({ latitude, longitude }) => {
   const [shelters, setShelters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,20 +29,20 @@ const NearbyShelters = ({ userLatitude, userLongitude }) => {
     const fetchShelters = async () => {
       try {
         const response = await axios.get(
-          'https://services.arcgis.com/pGfbNJoYypmNq86F/arcgis/rest/services/Open_Shelters/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*'
+          "https://services.arcgis.com/pGfbNJoYypmNq86F/arcgis/rest/services/Open_Shelters/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*"
         );
-        
+
         // Calculate the distance for each shelter
         const sheltersWithDistance = response.data.features.map((shelter) => {
           const distance = getDistance(
-            userLatitude,
-            userLongitude,
+            latitude,
+            longitude,
             shelter.attributes.LATITUDE,
             shelter.attributes.LONGITUDE
           );
           return { ...shelter, distance };
         });
-        
+
         // Sort shelters by distance and take the closest two
         const closestShelters = sheltersWithDistance
           .sort((a, b) => a.distance - b.distance)
@@ -54,10 +56,10 @@ const NearbyShelters = ({ userLatitude, userLongitude }) => {
       }
     };
 
-    if (userLatitude && userLongitude) {
+    if (latitude && longitude) {
       fetchShelters();
     }
-  }, [userLatitude, userLongitude]);
+  }, [latitude, longitude]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -68,7 +70,9 @@ const NearbyShelters = ({ userLatitude, userLongitude }) => {
       <ul>
         {shelters.map((shelter, index) => (
           <li key={index}>
-            {shelter.attributes.ADDRESS_1}, {shelter.attributes.CITY}, {shelter.attributes.STATE}, {shelter.attributes.ZIP} - {shelter.distance.toFixed(2)} km away
+            {shelter.attributes.ADDRESS_1}, {shelter.attributes.CITY},{" "}
+            {shelter.attributes.STATE}, {shelter.attributes.ZIP} -{" "}
+            {shelter.distance.toFixed(2)} km away
             <MapEmbed
               place_name={shelter.attributes.SHELTER_NAME}
               latitude={shelter.attributes.LATITUDE}
@@ -81,10 +85,10 @@ const NearbyShelters = ({ userLatitude, userLongitude }) => {
   );
 };
 
-// Add PropTypes for userLatitude and userLongitude
+// Add PropTypes for latitude and longitude
 NearbyShelters.propTypes = {
-  userLatitude: PropTypes.number.isRequired,  // Ensure userLatitude is a number and required
-  userLongitude: PropTypes.number.isRequired, // Ensure userLongitude is a number and required
+  latitude: PropTypes.number.isRequired, // Ensure latitude is a number and required
+  longitude: PropTypes.number.isRequired, // Ensure longitude is a number and required
 };
 
 export default NearbyShelters;

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const MapEmbed = ({ place_name, latitude, longitude }) => {
   return (

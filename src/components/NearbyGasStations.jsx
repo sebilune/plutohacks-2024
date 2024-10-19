@@ -61,7 +61,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
       </h5>
       <hr />
       {validStations.length > 0 ? (
-        <ul>
+        <ul className="stations-ul">
           {validStations.map((station) => (
             <li key={station.id} className="station">
               <hgroup>
@@ -83,7 +83,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
           ))}
         </ul>
       ) : (
-        <p>No gas stations found for this location.</p>
+        <p className="text-center">No gas stations found for this location.</p>
       )}
     </article>
   );
