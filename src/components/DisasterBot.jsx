@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaRobot } from "react-icons/fa6";
+import { IconRobot } from '@tabler/icons-react'; // Import the Tabler Icons Robot
 import { callOpenAI } from '../API/openai'; // Adjust based on your file structure
 
 const DisasterBot = () => {
@@ -51,19 +51,18 @@ const DisasterBot = () => {
     <>
       {/* Floating chat bubble */}
       <div className="chat-bubble-container">
-  <div className="chat-bubble" onClick={toggleChat}>
-    {/* Using React Icon instead of image */}
-    <FaRobot color="white" size={30} />
-  </div>
+        <div className="chat-bubble" onClick={toggleChat}>
+          {/* Using Tabler Icons' robot icon */}
+          <IconRobot size={30} color="white" />
+        </div>
 
-  {/* Optional pop-up message to encourage user interaction */}
-  {isPromptVisible && (
-    <div className="chat-prompt">
-      Need help? Click the AI to assist you in being more secure!
-    </div>
-  )}
-</div>
-
+        {/* Optional pop-up message to encourage user interaction */}
+        {isPromptVisible && (
+          <div className="chat-prompt">
+            Need help? Click the AI to assist you in being more secure!
+          </div>
+        )}
+      </div>
 
       {/* Chatbot modal */}
       {showChat && (
@@ -73,7 +72,7 @@ const DisasterBot = () => {
               <h2>Disaster Bot</h2>
               <button className="close-button" onClick={toggleChat}>✖</button>
             </header>
-            
+
             {/* Chat window */}
             <div className="chat-window">
               {conversation.map((message, index) => (
