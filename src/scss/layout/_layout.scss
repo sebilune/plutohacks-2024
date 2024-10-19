@@ -1,5 +1,9 @@
-.hero {
+.summary-hero {
   margin-top: 3.5rem;
+}
+
+.hero {
+  margin-top: 8.5rem;
 }
 
 .summary p {
@@ -58,7 +62,7 @@
   width: 100%;
 
   details {
-    width: 30rem;
+    max-width: 30rem;
   }
 }
 
