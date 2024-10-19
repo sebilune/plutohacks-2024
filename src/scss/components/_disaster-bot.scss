@@ -1,8 +1,8 @@
 /* Floating Chat Bubble Container */
 .chat-bubble-container {
     position: fixed;
-    bottom: 30px;
-    right: 30px; /* Keep bubble on the right */
+    bottom: 20px;
+    right: 35px; /* Keep bubble on the right */
     display: flex;
     flex-direction: row-reverse; /* Place prompt on the left of the bubble */
     align-items: center;
@@ -54,6 +54,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 25px; /* Increase space between the prompt and the bubble */
     font-size: 16px;
+    margin-right: 10px; /* Increase space between the prompt and the bubble */
+
     text-align: center;
     white-space: nowrap; /* Prevent text from wrapping */
 }
@@ -67,6 +69,57 @@
     height: 700px;
     z-index: 800;
     transition: all 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+    .chatbot-modal {
+        width: 90vw; /* Adjust for medium screens */
+        height: 90vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .chatbot-modal {
+        width: 100vw; /* Full width on smaller screens */
+        height: 90vh;
+    }
+
+    .chat-bubble-container {
+        bottom: 15px;
+        right: 15px; /* Adjust bubble position for smaller screens */
+    }
+
+    .chat-bubble {
+        width: 60px;
+        height: 60px;
+    }
+
+    .chat-prompt {
+        font-size: 14px;
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chatbot-modal {
+        width: 100vw;
+        height: 80vh;
+    }
+
+    .chat-bubble-container {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .chat-bubble {
+        width: 50px;
+        height: 50px;
+    }
+
+    .chat-prompt {
+        font-size: 12px;
+        margin-left: 10px;
+    }
 }
 
 /* Modal styling */
@@ -109,6 +162,12 @@
     padding: 10px;
     border-radius: 8px;
     max-height: 600px;
+}
+
+@media (max-width: 768px) {
+    .chat-window {
+        max-height: 500px;
+    }
 }
 
 /* Chat Messages */
