@@ -1,0 +1,11 @@
+@use "../base/colors" as *;
+
+.btn {
+  background: linear-gradient(90deg, $blurple-gradient);
+  color: white;
+  transition: background 0.3s;
+}
+
+.location-btn {
+  margin-top: 2rem;
+}

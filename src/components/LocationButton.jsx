@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const LocationButton = ({ onLocationRetrieved }) => {
+const LocationButton = ({ onLocationRetrieved, className }) => {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [error, setError] = useState(null);
 
@@ -29,7 +29,11 @@ const LocationButton = ({ onLocationRetrieved }) => {
 
   return (
     <div>
-      <button onClick={getLocation} disabled={loadingLocation}>
+      <button
+        onClick={getLocation}
+        disabled={loadingLocation}
+        className={className}
+      >
         {loadingLocation ? "Fetching Location..." : "Get My Location"}
       </button>
       {error && <p>{error}</p>}
@@ -38,6 +42,7 @@ const LocationButton = ({ onLocationRetrieved }) => {
 };
 LocationButton.propTypes = {
   onLocationRetrieved: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default LocationButton;

@@ -34,7 +34,7 @@ const Summary = () => {
               excited to share our journey!
             </p>
           </section>
-          <div className="project-accordions">
+          <div className="project-accordions centered-stacked">
             <article>
               <Accordion
                 title="Project Overview 📖"

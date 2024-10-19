@@ -15,10 +15,20 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home</h1>
-
-      {/* LocationButton is rendered first */}
-      <LocationButton onLocationRetrieved={handleLocationRetrieved} />
+      <section className="hero">
+        <section id="home" className="centerd">
+          <hgroup className="text-center">
+            <h1>
+              Welcome to SEMA,
+              <div></div>Your solution for disaster preparedness.
+            </h1>
+            <p className="text-center">All we need is a location!</p>
+          </hgroup>
+          <div className="stacked location-btn">
+            <LocationButton onLocationRetrieved={handleLocationRetrieved} />
+          </div>
+        </section>
+      </section>
 
       {/* Pass coordinates to NearbyRestaurants and WeatherAlerts */}
       <NearbyRestaurants
