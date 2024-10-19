@@ -57,7 +57,7 @@ const LocationButton = ({ onLocationRetrieved }) => {
         className="icon-btn anim-blue-btn"
       >
         <IconMapPin size={30} color="white" />
-        {loadingLocation ? "Fetching..." : "Get my location!"}
+        {loadingLocation ? "Fetching..." : "Get my location"}
       </button>
     </div>
   );
