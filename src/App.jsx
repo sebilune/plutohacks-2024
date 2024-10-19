@@ -13,21 +13,24 @@ import Navbar from "./components/NavBar";
 import Summary from "./pages/Summary";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
-import DisasterBot from "./pages/DisasterBot";
+import DisasterBot from "./components/DisasterBot";
 
 function App() {
   return (
     <Router>
       <div className="container">
         <Navbar />
+        <DisasterBot />
+
       </div>
       <div className="container">
         <Routes>
           <Route path="*" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home />} /> {/* Add Home route */}
           <Route path="/summary" element={<Summary />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/disaster-bot" element={<DisasterBot />} />
+
         </Routes>
       </div>
     </Router>
