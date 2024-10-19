@@ -9,6 +9,8 @@ const WeatherAlerts = ({ latitude, longitude }) => {
   const apiKey = import.meta.env.VITE_SEVERE_WEATHER_API_KEY;
 
   useEffect(() => {
+    if (!latitude || !longitude) return; // Don't attempt to fetch data if coordinates aren't available
+
     const getWeatherAlerts = async () => {
       const url = `https://api.weatherbit.io/v2.0/alerts?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
 
@@ -30,13 +32,15 @@ const WeatherAlerts = ({ latitude, longitude }) => {
       }
     };
 
-    if (latitude && longitude) {
-      getWeatherAlerts();
-    }
+    getWeatherAlerts();
   }, [latitude, longitude, apiKey]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (!latitude || !longitude) {
+    return <div>Weather Alerts</div>; // Placeholder if no coordinates are available
+  }
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
@@ -71,8 +75,8 @@ const WeatherAlerts = ({ latitude, longitude }) => {
 };
 
 WeatherAlerts.propTypes = {
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
 };
 
 export default WeatherAlerts;

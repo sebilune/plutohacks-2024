@@ -1,48 +1,49 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
 const NearbyRestaurants = ({ latitude, longitude }) => {
   const [restaurants, setRestaurants] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (latitude && longitude) {
-      const fetchRestaurants = async () => {
-        const query = `
-          [out:json];
-          (
-            node["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
-            way["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
-            relation["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
-          );
-          out body;
-        `;
+    if (!latitude || !longitude) return; // Don't attempt to fetch data if coordinates aren't available
 
-        try {
-          const response = await axios.post(
-            "https://overpass-api.de/api/interpreter",
-            query,
-            {
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            }
-          );
-          setRestaurants(response.data.elements);
-        } catch {
-          setError("Error fetching restaurants");
-        } finally {
-          setLoading(false);
-        }
-      };
+    const fetchRestaurants = async () => {
+      const query = `
+        [out:json];
+        (
+          node["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
+          way["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
+          relation["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
+        );
+        out body;
+      `;
 
-      fetchRestaurants();
-    }
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await axios.post(
+          "https://overpass-api.de/api/interpreter",
+          query,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        );
+        setRestaurants(response.data.elements);
+      } catch {
+        setError("Error fetching restaurants");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRestaurants();
   }, [latitude, longitude]);
 
-  // Render nothing if latitude or longitude is undefined
   if (!latitude || !longitude) {
-    return <div>Please get your location to see nearby restaurants.</div>;
+    return <div>Nearby Restaurants</div>; // Placeholder if no coordinates are available
   }
 
   if (loading) return <div>Loading...</div>;
@@ -51,21 +52,24 @@ const NearbyRestaurants = ({ latitude, longitude }) => {
   return (
     <div>
       <h2>Nearby Restaurants</h2>
-      <ul>
-        {restaurants.map((restaurant) => (
-          <li key={restaurant.id}>
-            <h3>{restaurant.tags?.name || "Unnamed Restaurant"}</h3>
-            <p>
-              {restaurant.lat}, {restaurant.lon}
-            </p>
-          </li>
-        ))}
-      </ul>
+      {restaurants.length > 0 ? (
+        <ul>
+          {restaurants.map((restaurant) => (
+            <li key={restaurant.id}>
+              <h3>{restaurant.tags?.name || "Unnamed Restaurant"}</h3>
+              <p>
+                {restaurant.lat}, {restaurant.lon}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No restaurants found for this location.</p>
+      )}
     </div>
   );
 };
 
-// PropTypes no longer mark latitude and longitude as required
 NearbyRestaurants.propTypes = {
   latitude: PropTypes.number,
   longitude: PropTypes.number,

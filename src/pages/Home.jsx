@@ -20,24 +20,15 @@ const Home = () => {
       {/* LocationButton is rendered first */}
       <LocationButton onLocationRetrieved={handleLocationRetrieved} />
 
-      {/* Conditionally render NearbyRestaurants and WeatherAlerts */}
-      {coordinates.latitude && coordinates.longitude ? (
-        <>
-          <NearbyRestaurants
-            latitude={coordinates.latitude}
-            longitude={coordinates.longitude}
-          />
-          <WeatherAlerts
-            latitude={coordinates.latitude}
-            longitude={coordinates.longitude}
-          />
-        </>
-      ) : (
-        <p>
-          Please fetch your location to see nearby restaurants and weather
-          alerts.
-        </p>
-      )}
+      {/* Pass coordinates to NearbyRestaurants and WeatherAlerts */}
+      <NearbyRestaurants
+        latitude={coordinates.latitude}
+        longitude={coordinates.longitude}
+      />
+      <WeatherAlerts
+        latitude={coordinates.latitude}
+        longitude={coordinates.longitude}
+      />
     </div>
   );
 };
