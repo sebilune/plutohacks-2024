@@ -37,23 +37,22 @@ const Summary = () => {
             <article>
               <Accordion
                 title="Project Overview 📖"
-                description="Our project is designed to help people stay safe and informed during natural disasters. The webapp uses advanced geolocation technology and integrates real-time weather alerts to ensure users are aware of any dangerous conditions nearby. Whether it's avoiding hazardous weather or finding safe locations during emergencies, our tool empowers users with the information they need to make quick, informed decisions."
+                description="SEMA is an all-in-one emergency preparedness platform designed to keep users informed and safe during disasters. It provides real-time weather notifications sourced from the National Weather Service, ensuring timely alerts about severe weather conditions. SEMA highlights nearby shelters, displays the nearest gas stations, and features a chatbot for quick access to disaster-related information."
                 isOpen={true}
               />
               <hr />
               <Accordion
                 title="Our Vision 👓"
-                description="Our vision is to create a world where no one is caught unprepared in the face of natural disasters. Through a seamless blend of real-time data, AI-driven chat assistance, and interactive mapping, we aim to make disaster preparedness accessible to everyone. Whether it's finding open gas stations, shelters, or preparing for incoming storms, our platform delivers essential resources at the click of a button."
+                description="Our goal is to create a user-friendly platform that provides timely information and essential resources, enabling users to make informed decisions during crises. We hope SEMA offers valuable insights that empower users to make the best choices, including timely evacuation, ultimately protecting lives from life-threatening situations."
               />
               <hr />
               <Accordion
                 title="Challenges ⚡"
-                description="Creating this platform posed some unique challenges, from integrating multiple real-time APIs to ensuring the accuracy of location-based alerts. We tackled issues like data overload, balancing user interface simplicity, and making sure the chatbot's AI was intuitive enough to assist people in moments of high stress. Despite these obstacles, our team was able to push through and deliver a dynamic, reliable app."
-              />
+                description= ""/>
               <hr />
               <Accordion
                 title="Finale 🎉"
-                description="We are incredibly proud of what we achieved with this project. By combining real-time data analytics, AI-driven chat functionality, and an intuitive user interface, we’ve built a tool that can save lives in critical moments. This app is more than just a tool—it's a lifeline for those facing emergencies, providing them with crucial resources and timely information to make the best decisions possible."
+                description=""
               />
             </article>
           </div>
