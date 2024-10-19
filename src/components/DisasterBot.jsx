@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaRobot } from "react-icons/fa6";
 import { callOpenAI } from '../API/openai'; // Adjust based on your file structure
-import './DisasterBot.css'; // Updated CSS for phone-like look
 
 const DisasterBot = () => {
   const [query, setQuery] = useState('');

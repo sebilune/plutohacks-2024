@@ -13,7 +13,7 @@ import Navbar from "./components/NavBar";
 import Summary from "./pages/Summary";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
-import DisasterBot from "./pages/DisasterBot";
+import DisasterBot from "./components/DisasterBot";
 
 function App() {
   return (
