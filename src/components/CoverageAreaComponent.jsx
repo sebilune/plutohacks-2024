@@ -1,73 +1,85 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
-const ShelterLocator = () => {
-  const [shelters, setShelters] = useState([]);
-  const [error, setError] = useState(null);
+const CoverageAreaComponent = () => {
+  const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [mapCenter, setMapCenter] = useState([25.7617, -80.1918]); // Miami, FL as default
 
-  const fetchShelters = async (latitude, longitude) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "6ef44416d3mshfdd928a41c7acf2p1d2c73jsn421cb4200b39", // Replace with your RapidAPI key
-        "X-RapidAPI-Host": "homeless-shelter.p.rapidapi.com"
-      }
-    };
-
-    const radius = 10; // Set the radius you want to search in miles
-
+  const fetchAllWeatherAlerts = async () => {
+    setLoading(true);
+    setError(null);  // Clear any previous errors
     try {
-      setLoading(true);
-      const response = await fetch(
-        `https://homeless-shelter.p.rapidapi.com/location?lat=${latitude}&lng=${longitude}&radius=${radius}`,
-        options
-      );
+      const response = await fetch('https://api.weather.gov/alerts/active'); // Fetch all active alerts
       const data = await response.json();
-      setShelters(data);
+
+      // Add safety check to avoid rendering alerts with missing or invalid geometry
+      const validAlerts = (data.features || []).filter(
+        alert => alert.geometry && alert.geometry.coordinates && alert.geometry.coordinates.length >= 2
+      );
+
+      setAlerts(validAlerts);
+
+      if (validAlerts.length === 0) {
+        setError('No dangerous weather alerts found.');
+      }
     } catch (err) {
-      setError("Failed to fetch shelters. " + err.message);
+      setError("Error fetching weather data: " + err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const getLocation = () => {
+  const getLocationAndFetchAlerts = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          fetchShelters(latitude, longitude);
+          setMapCenter([latitude, longitude]); // Update map center to the user's location
         },
         (error) => {
           setError("Geolocation failed: " + error.message);
         }
       );
-    } else {
-      setError("Geolocation is not supported by this browser.");
     }
+
+    // Fetch all weather alerts regardless of proximity
+    fetchAllWeatherAlerts();
   };
 
   return (
     <div>
-      <h1>Shelter Locator</h1>
-      <button onClick={getLocation}>Find Nearest Shelter</button>
-
-      {loading && <p>Loading shelters...</p>}
+      <h1>Dangerous Weather Locator</h1>
+      <button onClick={getLocationAndFetchAlerts}>Show Dangerous Weather</button>
+      {loading && <p>Loading weather alerts...</p>}
       {error && <p>{error}</p>}
-
-      <ul>
-        {shelters.length > 0 ? (
-          shelters.map((shelter, index) => (
-            <li key={index}>
-              <strong>{shelter.name}</strong> - {shelter.address}
-            </li>
-          ))
-        ) : (
-          <p>No shelters found nearby.</p>
-        )}
-      </ul>
+      
+      <MapContainer center={mapCenter} zoom={5} style={{ height: "400px", width: "100%" }}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        {alerts.length > 0 && alerts.map((alert, index) => (
+          alert.geometry && alert.geometry.coordinates ? (
+            <Marker
+              key={index}
+              position={[
+                alert.geometry.coordinates[1], // latitude
+                alert.geometry.coordinates[0], // longitude
+              ]}
+            >
+              <Popup>
+                <strong>{alert.properties.headline || 'Weather Alert'}</strong><br />
+                {alert.properties.description || 'No description available.'}
+              </Popup>
+            </Marker>
+          ) : null
+        ))}
+      </MapContainer>
     </div>
   );
 };
 
-export default ShelterLocator;
+export default CoverageAreaComponent;
