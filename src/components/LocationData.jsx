@@ -29,7 +29,7 @@ const LocationData = ({ latitude, longitude }) => {
       <article>
         <h5 className="text-center">YOUR ADDRESS</h5>
         <hr />
-        <p>{address}</p>
+        <p className="text-center">{address}</p>
       </article>
       <article>
         <h5 className="text-center">YOUR COORDINATES</h5>

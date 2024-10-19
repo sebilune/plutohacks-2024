@@ -66,21 +66,25 @@ const NearbyShelters = ({ latitude, longitude }) => {
 
   return (
     <article>
-      <h2>Nearby Shelters</h2>
-      <ul>
-        {shelters.map((shelter, index) => (
-          <li key={index}>
-            {shelter.attributes.ADDRESS_1}, {shelter.attributes.CITY},{" "}
-            {shelter.attributes.STATE}, {shelter.attributes.ZIP} -{" "}
-            {shelter.distance.toFixed(2)} km away
+      <h5 className="text-center">NEARBY SHELTERS</h5>
+      <hr />
+      {shelters.map((shelter, index) => (
+        <>
+          <div className="station" key={index}>
+            <h3>{shelter.distance.toFixed(2)} km away</h3>
+            <div>
+              {shelter.attributes.ADDRESS_1}, {shelter.attributes.CITY},{" "}
+              {shelter.attributes.STATE}, {shelter.attributes.ZIP}
+            </div>
             <MapEmbed
               place_name={shelter.attributes.SHELTER_NAME}
               latitude={shelter.attributes.LATITUDE}
               longitude={shelter.attributes.LONGITUDE}
             />
-          </li>
-        ))}
-      </ul>
+          </div>
+          <hr />
+        </>
+      ))}
     </article>
   );
 };

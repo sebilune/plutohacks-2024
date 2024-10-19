@@ -30,12 +30,24 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  div {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    h3 {
+      text-align: center;
+      max-width: 20rem;
+    }
+  }
 }
 
 .stations-ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   li {
     hgroup {
