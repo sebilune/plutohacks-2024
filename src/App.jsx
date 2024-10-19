@@ -14,7 +14,7 @@ import Summary from "./pages/Summary";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import DisasterBot from "./components/DisasterBot";
-
+import CoverageAreaComponent from "./components/CoverageAreaComponent";
 function App() {
   return (
     <Router>
@@ -30,6 +30,8 @@ function App() {
           <Route path="/summary" element={<Summary />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/disaster-bot" element={<DisasterBot />} />
+          <Route path="/shelter-filter" element={<CoverageAreaComponent />} />
+
 
         </Routes>
       </div>
