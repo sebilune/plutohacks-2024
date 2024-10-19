@@ -2,21 +2,21 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const NearbyRestaurants = ({ latitude, longitude }) => {
-  const [restaurants, setRestaurants] = useState([]);
+const NearbyGasStations = ({ latitude, longitude }) => {
+  const [stations, setStations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!latitude || !longitude) return; // Don't attempt to fetch data if coordinates aren't available
 
-    const fetchRestaurants = async () => {
+    const fetchGasStations = async () => {
       const query = `
         [out:json];
         (
-          node["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
-          way["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
-          relation["amenity"="restaurant"](around:2000, ${latitude}, ${longitude});
+          node["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
+          way["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
+          relation["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
         );
         out body;
       `;
@@ -31,48 +31,63 @@ const NearbyRestaurants = ({ latitude, longitude }) => {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           }
         );
-        setRestaurants(response.data.elements);
+        setStations(response.data.elements);
       } catch {
-        setError("Error fetching restaurants");
+        setError("Error fetching gas stations");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchRestaurants();
+    fetchGasStations();
   }, [latitude, longitude]);
 
   if (!latitude || !longitude) {
-    return <div>Nearby Restaurants</div>; // Placeholder if no coordinates are available
+    return <div>Nearby Gas Stations</div>; // Placeholder if no coordinates are available
   }
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  // Filter out stations without valid coordinates
+  const validStations = stations.filter(
+    (station) => station.lat && station.lon
+  );
+
   return (
     <div>
-      <h2>Nearby Restaurants</h2>
-      {restaurants.length > 0 ? (
+      <h2>Nearby Gas Stations</h2>
+      {validStations.length > 0 ? (
         <ul>
-          {restaurants.map((restaurant) => (
-            <li key={restaurant.id}>
-              <h3>{restaurant.tags?.name || "Unnamed Restaurant"}</h3>
+          {validStations.map((station) => (
+            <li key={station.id}>
+              <h3>{station.tags?.name || "Unnamed Gas Station"}</h3>
               <p>
-                {restaurant.lat}, {restaurant.lon}
+                {station.lat}, {station.lon}
               </p>
+              {/* Embed Google Maps iframe */}
+              <iframe
+                width="300"
+                height="200"
+                src={`https://www.google.com/maps/embed/v1/place?key=${
+                  import.meta.env.VITE_MAPS_API_KEY
+                }&q=${station.lat},${station.lon}`}
+                allowFullScreen
+                title={station.tags?.name || "Gas Station Location"}
+              ></iframe>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No restaurants found for this location.</p>
+        <p>No gas stations found for this location.</p>
       )}
     </div>
   );
 };
 
-NearbyRestaurants.propTypes = {
+NearbyGasStations.propTypes = {
   latitude: PropTypes.number,
   longitude: PropTypes.number,
 };
 
-export default NearbyRestaurants;
+export default NearbyGasStations;
