@@ -104,43 +104,45 @@ const DisasterBot = () => {
 
       {/* Chatbot modal */}
       {showChat && (
+        <>
         <div className="chatbot-modal">
-          <div className="modal">
-            <header>
-              <h2> Prevention Starts with Knowledge | Learn with our new RescueBot AI</h2>
-              <button className="close-button" onClick={toggleChat}>
-                ✖
-              </button>
-            </header>
-
-            {/* Chat window */}
-            <div className="chat-window">
-              {conversation.map((message, index) => (
-                <div
-                  key={index}
-                  className={`chat-message ${
-                    message.role === "user" ? "user-message" : "bot-message"
-                  }`}
-                >
-                  {message.content}
+          <article>
+              <header>
+                <strong>RescueBot AI - Prevention Starts with Knowledge</strong>
+                <button className="close-button" onClick={toggleChat}>
+                  ✖
+                </button>
+              </header>
+              {/* Chat window */}
+              <div className="chat-window">
+                {conversation.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`chat-message ${
+                      message.role === "user" ? "user-message" : "bot-message"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                ))}
+              </div>
+              {/* Chat input form */}
+              <form onSubmit={handleSubmit} className="chat-input-form">
+                <div className="grid">
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Ask about disaster preparation..."
+                  />
+                  <button type="submit" disabled={loading}>
+                    {loading ? "Loading..." : "Send"}
+                  </button>
                 </div>
-              ))}
-            </div>
-
-            {/* Chat input form */}
-            <form onSubmit={handleSubmit} className="chat-input-form">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask about disaster preparation..."
-              />
-              <button type="submit" disabled={loading}>
-                {loading ? "Loading..." : "Send"}
-              </button>
-            </form>
-          </div>
+              </form>
+          </article>
         </div>
+        </>
       )}
     </>
   );
