@@ -83,7 +83,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
           ))}
         </ul>
       ) : (
-        <p>No gas stations found for this location.</p>
+        <p className="text-center">No gas stations found for this location.</p>
       )}
     </article>
   );

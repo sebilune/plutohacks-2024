@@ -5,6 +5,7 @@ import WeatherAlerts from "../components/WeatherAlerts";
 import NearbyGasStations from "../components/NearbyGasStations";
 import LocationData from "../components/LocationData";
 import html2pdf from "html2pdf.js";
+import NearbyShelters from "../components/NearbyShelters";
 
 const Home = () => {
   const [coordinates, setCoordinates] = useState({
@@ -49,6 +50,10 @@ const Home = () => {
       {coordinates.latitude && coordinates.longitude && (
         <div className="info" id="pdf-content">
           <WeatherAlerts
+            latitude={coordinates.latitude}
+            longitude={coordinates.longitude}
+          />
+          <NearbyShelters
             latitude={coordinates.latitude}
             longitude={coordinates.longitude}
           />
