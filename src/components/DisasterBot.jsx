@@ -33,7 +33,7 @@ const DisasterBot = () => {
 
       // Add bot's response to the conversation array
       setConversation((prev) => [...prev, botMessage]);
-    } catch (error) {
+    } catch {
       const errorMessage = {
         role: "assistant",
         content: "Error occurred. Please try again.",
