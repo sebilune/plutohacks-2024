@@ -54,7 +54,7 @@ const LocationButton = ({ onLocationRetrieved }) => {
       <button
         onClick={getLocation}
         disabled={loadingLocation || locationFetched}
-        className="icon-btn"
+        className="icon-btn anim-blue-btn"
       >
         <IconMapPin size={30} color="white" />
         {loadingLocation ? "Fetching..." : "Get my location!"}

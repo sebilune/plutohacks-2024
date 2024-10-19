@@ -28,6 +28,34 @@ button {
   border: none;
 }
 
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.anim-blue-btn {
+  background: linear-gradient(
+    270deg,
+    #5f61ff,
+    #6566ff,
+    #7b7cff,
+    #c4c4ff,
+    #8f90ff,
+    #8a5fff
+  );
+  background-size: 300% 300%;
+  border: none;
+  color: white;
+  animation: gradient-animation 12s ease infinite;
+}
+
 .outline {
   background: none;
   border: 2px solid #007bff;
