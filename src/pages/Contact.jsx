@@ -5,6 +5,7 @@ function Contact() {
     <>
       <footer>
         <section id="contact">
+          <div className="contact-div">
           <h2>Contact Us</h2>
           <p>
             Want to get in touch or learn more about our project? Feel free to
@@ -66,6 +67,7 @@ function Contact() {
               </a>
               <p>Aspen</p>
             </div>
+          </div>
           </div>
         </section>
       </footer>
