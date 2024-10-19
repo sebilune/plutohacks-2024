@@ -2,6 +2,8 @@ import { useState } from "react";
 import LocationButton from "../components/LocationButton";
 import WeatherAlerts from "../components/WeatherAlerts";
 import NearbyGasStations from "../components/NearbyGasStations";
+import WeatherConditions from "../components/WeatherConditions";
+import html2pdf from "html2pdf.js";
 
 const Home = () => {
   const [coordinates, setCoordinates] = useState({
@@ -11,6 +13,19 @@ const Home = () => {
 
   const handleLocationRetrieved = (latitude, longitude) => {
     setCoordinates({ latitude, longitude });
+  };
+
+  const generatePdf = () => {
+    const element = document.getElementById("pdf-content");
+    const options = {
+      margin: 0.5,
+      filename: "SEMA-Report.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    html2pdf().from(element).set(options).save();
   };
 
   return (
@@ -31,7 +46,7 @@ const Home = () => {
       </section>
 
       {coordinates.latitude && coordinates.longitude && (
-        <div className="info">
+        <div className="info" id="pdf-content">
           <WeatherAlerts
             latitude={coordinates.latitude}
             longitude={coordinates.longitude}
@@ -40,6 +55,17 @@ const Home = () => {
             latitude={coordinates.latitude}
             longitude={coordinates.longitude}
           />
+          {/* Insert the WeatherConditions component */}
+          <WeatherConditions
+            latitude={coordinates.latitude}
+            longitude={coordinates.longitude}
+          />
+        </div>
+      )}
+
+      {coordinates.latitude && coordinates.longitude && (
+        <div className="text-center">
+          <button onClick={generatePdf}>Download Report as PDF</button>
         </div>
       )}
     </div>
