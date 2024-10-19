@@ -11,6 +11,7 @@ const WeatherConditions = ({ latitude, longitude }) => {
   const [error, setError] = useState(null);
   const [address, setAddress] = useState("");
 
+  // Getting the API key from Vite environment variables
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   const fetchWeatherData = useCallback(async () => {
@@ -21,33 +22,50 @@ const WeatherConditions = ({ latitude, longitude }) => {
       setLoading(true);
       setError(null);
 
+      // Debugging: Log the API key to verify it's loading correctly
+      console.log("API Key: ", apiKey);
+
       const response = await fetch(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?unitGroup=us&include=current%2Cdays%2Chours%2Calerts%2Cevents&key=${apiKey}&contentType=json`
       );
+
+      if (!response.ok) {
+        throw new Error(`Error fetching weather data: ${response.statusText}`);
+      }
+
       const data = await response.json();
       setWeatherData(data);
+
+      // Fetch the address associated with latitude and longitude
       fetchAddress(latitude, longitude);
-    } catch {
-      setError("Failed to fetch weather data");
+    } catch (err) {
+      console.error("Error in fetchWeatherData:", err);
+      setError("Failed to fetch weather data. Please check the API key and try again.");
     } finally {
       setLoading(false);
     }
-  }, [latitude, longitude]);
+  }, [latitude, longitude, apiKey]);
 
   const fetchAddress = useCallback(async (lat, lon) => {
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
       );
+      if (!response.ok) {
+        throw new Error("Error fetching address");
+      }
       const data = await response.json();
       setAddress(data.display_name);
-    } catch {
-      setError("Failed to fetch address");
+    } catch (err) {
+      console.error("Error in fetchAddress:", err);
+      setError("Failed to fetch address.");
     }
   }, []);
 
   useEffect(() => {
-    fetchWeatherData();
+    if (latitude && longitude) {
+      fetchWeatherData();
+    }
   }, [latitude, longitude, fetchWeatherData]);
 
   const buildGraphData = () => {
