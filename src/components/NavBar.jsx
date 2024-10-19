@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="navbar">
       <ul>
         <li>
-          <strong>SEMA</strong> @ PlutoHacks 🌈
+          <strong>SEMA</strong>
         </li>
       </ul>
       <ul>

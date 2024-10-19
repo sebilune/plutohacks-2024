@@ -1,8 +1,9 @@
 import { useState } from "react";
+
 import LocationButton from "../components/LocationButton";
 import WeatherAlerts from "../components/WeatherAlerts";
 import NearbyGasStations from "../components/NearbyGasStations";
-import WeatherConditions from "../components/WeatherConditions";
+import LocationData from "../components/LocationData";
 import html2pdf from "html2pdf.js";
 
 const Home = () => {
@@ -55,8 +56,7 @@ const Home = () => {
             latitude={coordinates.latitude}
             longitude={coordinates.longitude}
           />
-          {/* Insert the WeatherConditions component */}
-          <WeatherConditions
+          <LocationData
             latitude={coordinates.latitude}
             longitude={coordinates.longitude}
           />
@@ -64,8 +64,10 @@ const Home = () => {
       )}
 
       {coordinates.latitude && coordinates.longitude && (
-        <div className="text-center">
-          <button onClick={generatePdf}>Download Report as PDF</button>
+        <div className="container">
+          <div className="text-center">
+            <button onClick={generatePdf}>Download Report as PDF</button>
+          </div>
         </div>
       )}
     </div>

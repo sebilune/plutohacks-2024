@@ -25,7 +25,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+}
+
+.stations-ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  li {
+    hgroup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.iframe-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .project-accordions {
