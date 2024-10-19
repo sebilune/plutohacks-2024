@@ -21,6 +21,13 @@
   }
 }
 
+.station {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
 .project-accordions {
   margin-top: 4rem;
   display: flex;

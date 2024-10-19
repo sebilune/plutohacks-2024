@@ -58,11 +58,13 @@ const NearbyGasStations = ({ latitude, longitude }) => {
       {validStations.length > 0 ? (
         <ul>
           {validStations.map((station) => (
-            <li key={station.id}>
-              <h3>{station.tags?.name || "Unnamed Gas Station"}</h3>
-              <p>
-                {station.lat}, {station.lon}
-              </p>
+            <li key={station.id} className="station">
+              <hgroup>
+                <h3>{station.tags?.name || "Unnamed Gas Station"}</h3>
+                <p>
+                  {station.lat}, {station.lon}
+                </p>
+              </hgroup>
               <iframe
                 width="300"
                 height="200"
