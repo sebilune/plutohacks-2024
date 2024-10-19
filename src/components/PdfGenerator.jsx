@@ -16,16 +16,9 @@ const PdfGenerator = () => {
   };
 
   return (
-    <div>
+    <article>
       <button onClick={generatePdf}>Download Page as PDF</button>
-
-      {/* Add an ID to the content you want to convert to PDF */}
-      <div id="pdf-content">
-        <h1>Welcome to Our Webpage</h1>
-        <p>This content will be converted into a PDF document.</p>
-        {/* Add the content you want to appear in the PDF */}
-      </div>
-    </div>
+    </article>
   );
 };
 

@@ -47,9 +47,9 @@ const NearbyGasStations = ({ latitude, longitude }) => {
   if (error) return <div>{error}</div>;
 
   // Filter out stations without valid coordinates
-  const validStations = stations.filter(
-    (station) => station.lat && station.lon
-  );
+  const validStations = stations
+    .filter((station) => station.lat && station.lon)
+    .slice(0, 3); // Limit to 2 or 3 stations
 
   return (
     <article>
