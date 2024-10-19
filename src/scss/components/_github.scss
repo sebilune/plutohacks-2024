@@ -1,6 +1,11 @@
+.contact-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .github-container {
   display: flex;
-  justify-content: space-between;
   padding: 20px;
 }
 
