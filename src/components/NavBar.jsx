@@ -8,7 +8,9 @@ const Navbar = () => {
     <nav className="navbar">
       <ul>
         <li>
-          <strong>SEMA</strong>
+          <strong>
+            <span className="anim-blue">SEMA</span>
+          </strong>
         </li>
       </ul>
       <ul>

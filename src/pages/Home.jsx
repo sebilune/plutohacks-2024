@@ -36,7 +36,8 @@ const Home = () => {
         <section id="home">
           <hgroup className="text-center">
             <h1>
-              Welcome to SEMA,
+              Welcome to&nbsp;
+              <span className="anim-blue">SEMA,</span>
               <div></div>Your solution for disaster preparedness.
             </h1>
             <p className="text-center">All we need is your location!</p>
