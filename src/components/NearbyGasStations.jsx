@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -7,43 +7,43 @@ const NearbyGasStations = ({ latitude, longitude }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetchGasStations = useCallback(async () => {
     if (!latitude || !longitude) return; // Don't attempt to fetch data if coordinates aren't available
 
-    const fetchGasStations = async () => {
-      const query = `
-        [out:json];
-        (
-          node["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
-          way["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
-          relation["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
-        );
-        out body;
-      `;
+    const query = `
+      [out:json];
+      (
+        node["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
+        way["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
+        relation["amenity"="fuel"](around:2000, ${latitude}, ${longitude});
+      );
+      out body;
+    `;
 
-      try {
-        console.log("Fetching gas stations!");
-        setLoading(true);
-        setError(null);
-        const response = await axios.post(
-          "https://overpass-api.de/api/interpreter",
-          query,
-          {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          }
-        );
-        setStations(response.data.elements);
-      } catch {
-        setError("Error fetching gas stations");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGasStations();
+    try {
+      console.log("Fetching gas stations!");
+      setLoading(true);
+      setError(null);
+      const response = await axios.post(
+        "https://overpass-api.de/api/interpreter",
+        query,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      setStations(response.data.elements);
+    } catch {
+      setError("Error fetching gas stations");
+    } finally {
+      setLoading(false);
+    }
   }, [latitude, longitude]);
 
-  if (loading) return <div>Loading nearby gas stations...</div>;
+  useEffect(() => {
+    fetchGasStations(); // Fetch stations on initial render
+  }, [latitude, longitude, fetchGasStations]);
+
+  if (loading) return <span aria-busy="true">Fetching Gas Stations...</span>;
   if (error) return <div>{error}</div>;
 
   // Filter out stations without valid coordinates
@@ -53,7 +53,12 @@ const NearbyGasStations = ({ latitude, longitude }) => {
 
   return (
     <article>
-      <h5 className="text-center">NEARBY GAS STATIONS</h5>
+      <h5 className="text-center">
+        NEARBY GAS STATIONS
+        <button onClick={fetchGasStations} className="outline refetch-btn">
+          Refetch
+        </button>
+      </h5>
       <hr />
       {validStations.length > 0 ? (
         <ul>

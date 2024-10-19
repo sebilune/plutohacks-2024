@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
 const WeatherAlerts = ({ latitude, longitude }) => {
@@ -8,33 +8,33 @@ const WeatherAlerts = ({ latitude, longitude }) => {
 
   const apiKey = import.meta.env.VITE_SEVERE_WEATHER_API_KEY;
 
-  useEffect(() => {
+  const getWeatherAlerts = useCallback(async () => {
     if (!latitude || !longitude) return; // Don't attempt to fetch data if coordinates aren't available
 
-    const getWeatherAlerts = async () => {
-      const url = `https://api.weatherbit.io/v2.0/alerts?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
+    const url = `https://api.weatherbit.io/v2.0/alerts?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
 
-      try {
-        console.log("Fetching weather alerts!");
-        setLoading(true);
-        setError(null);
-        const response = await fetch(url);
+    try {
+      console.log("Fetching weather alerts!");
+      setLoading(true);
+      setError(null);
+      const response = await fetch(url);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch alerts");
-        }
-
-        const data = await response.json();
-        setAlerts(data.alerts);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error("Failed to fetch alerts");
       }
-    };
 
-    getWeatherAlerts();
+      const data = await response.json();
+      setAlerts(data.alerts);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   }, [latitude, longitude, apiKey]);
+
+  useEffect(() => {
+    getWeatherAlerts(); // Fetch alerts on initial render
+  }, [latitude, longitude, getWeatherAlerts]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -88,12 +88,21 @@ const WeatherAlerts = ({ latitude, longitude }) => {
     return details;
   };
 
-  if (loading) return <div>Loading weather alerts...</div>;
+  if (loading) return <span aria-busy="true">Fetching Weather Alerts...</span>;
   if (error) return <div>{error}</div>;
 
   return (
     <article>
-      <h5 className="text-center">WEATHER WARNINGS</h5>
+      <h5 className="text-center">
+        WEATHER WARNINGS
+        <button
+          onClick={getWeatherAlerts}
+          disabled={loading}
+          className="outline refetch-btn"
+        >
+          Refetch
+        </button>
+      </h5>
       <hr />
       {alerts.length > 0 ? (
         alerts.map((alert, index) => {
