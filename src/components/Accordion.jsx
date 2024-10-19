@@ -8,10 +8,9 @@ const Accordion = ({ title, description, isOpen }) => {
     </details>
   );
 };
-
 Accordion.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.node.isRequired, // description can be any renderable React node
   isOpen: PropTypes.bool, // isOpen is optional
 };
 
