@@ -18,6 +18,7 @@ h2 {
   cursor: pointer;
   transition: background-color 0.6s ease, transform 0.3s ease;
   animation: pulse 1.5s infinite;
+  z-index: 998;
 }
 
 h2 {
@@ -87,8 +88,6 @@ h2 {
   bottom: 0;
   right: 0;
   margin: 0;
-  // width: 700px;
-  // height: 700px;
   z-index: 999;
   transition: all 0.3s ease;
 
@@ -108,78 +107,16 @@ h2 {
   }
 }
 
-// @media (max-width: 1200px) {
-//   .chatbot-modal {
-//     width: 90vw; /* Adjust for medium screens */
-//     height: 90vh;
-//   }
-// }
-
-// @media (max-width: 768px) {
-//   .chatbot-modal {
-//     width: 100vw; /* Full width on smaller screens */
-//     height: 90vh;
-//   }
-
-//   .chat-bubble-container {
-//     bottom: 15px;
-//     right: 15px; /* Adjust bubble position for smaller screens */
-//   }
-
-//   .chat-bubble {
-//     width: 60px;
-//     height: 60px;
-//   }
-
-//   .chat-prompt {
-//     font-size: 14px;
-//     margin-left: 15px;
-//   }
-// }
-
-// @media (max-width: 480px) {
-//   .chatbot-modal {
-//     width: 100vw;
-//     height: 80vh;
-//   }
-
-//   .chat-bubble-container {
-//     bottom: 10px;
-//     right: 10px;
-//   }
-
-//   .chat-bubble {
-//     width: 50px;
-//     height: 50px;
-//   }
-
-//   .chat-prompt {
-//     font-size: 12px;
-//     margin-left: 10px;
-//   }
-// }
-
 /* Modal styling */
 .modal {
   width: 100%;
   height: 100%;
   border: none;
-  // border-radius: 20px 20px 0 0;
   padding: 20px;
-  // background-color: white;
   display: flex;
   flex-direction: column;
   position: relative;
 }
-
-/* Modal Header */
-// .modal header {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding-bottom: 10px;
-//   border-bottom: 1px solid #ddd;
-// }
 
 .close-button {
   background: transparent !important;
@@ -194,13 +131,13 @@ h2 {
 /* Chat Window */
 .chat-window {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   margin-bottom: 10px;
   // background-color: #f9f9f9;
   padding: 10px;
   border-radius: 8px;
   min-height: 300px;
-  max-height: 600px;
+  max-height: 500px;
 }
 
 @media (max-width: 768px) {
@@ -233,17 +170,3 @@ h2 {
   margin-right: auto;
   max-width: 70%;
 }
-
-// /* Input Form */
-// .chat-input-form {
-//   display: flex;
-//   gap: 15px;
-//   margin-top: auto;
-// }
-
-// input[type="text"] {
-//   flex-grow: 1;
-//   padding: 10px;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-// }
