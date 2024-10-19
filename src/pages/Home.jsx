@@ -7,6 +7,8 @@ import LocationData from "../components/LocationData";
 import html2pdf from "html2pdf.js";
 import NearbyShelters from "../components/NearbyShelters";
 
+import { IconWind } from "@tabler/icons-react";
+
 const Home = () => {
   const [coordinates, setCoordinates] = useState({
     latitude: null,
@@ -38,7 +40,8 @@ const Home = () => {
             <h1>
               Welcome to&nbsp;
               <span className="anim-blue">SEMA,</span>
-              <div></div>Your solution for disaster preparedness.
+              <div></div>Your solution for disaster preparedness.{" "}
+              <IconWind stroke={2} size={45} />
             </h1>
             <p className="text-center">All we need is your location!</p>
           </hgroup>
