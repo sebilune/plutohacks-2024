@@ -1,6 +1,38 @@
 import { useState, useEffect } from "react";
 import { IconRobot } from "@tabler/icons-react"; // Import the Tabler Icons Robot
-import { callOpenAI } from "./openai"; // Adjust based on your file structure
+
+// Your OpenAI API call function
+export async function callOpenAI(prompt) {
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`, // Use environment variable for API key
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: 'You are a helpful assistant.' },
+          { role: 'user', content: prompt },
+        ],
+        max_tokens: 150,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('Error in the request:', response.status, response.statusText);
+      const errorText = await response.text();
+      throw new Error(`Error: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content.trim();
+  } catch (err) { // Renamed error to err and using it
+    console.error('API Error:', err); 
+    return 'Error: Unable to process the request';
+  }
+}
 
 const DisasterBot = () => {
   const [query, setQuery] = useState("");
@@ -75,9 +107,7 @@ const DisasterBot = () => {
         <div className="chatbot-modal">
           <div className="modal">
             <header>
-              
-              <h2> Prevention Starts with Knowledge  RescueBot AI</h2>
-            
+              <h2> Prevention Starts with Knowledge - RescueBot AI</h2>
               <button className="close-button" onClick={toggleChat}>
                 ✖
               </button>
