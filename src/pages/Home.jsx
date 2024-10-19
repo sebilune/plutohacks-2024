@@ -1,7 +1,7 @@
 import { useState } from "react";
-import WeatherAlerts from "../components/WeatherAlerts";
-import NearbyRestaurants from "../components/NearbyRestaurants";
 import LocationButton from "../components/LocationButton";
+import WeatherAlerts from "../components/WeatherAlerts";
+import NearbyGasStations from "../components/NearbyGasStations";
 
 const Home = () => {
   const [coordinates, setCoordinates] = useState({
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div>
       <section className="hero">
-        <section id="home" className="centerd">
+        <section id="home">
           <hgroup className="text-center">
             <h1>
               Welcome to SEMA,
@@ -30,15 +30,18 @@ const Home = () => {
         </section>
       </section>
 
-      {/* Pass coordinates to NearbyRestaurants and WeatherAlerts */}
-      <NearbyRestaurants
-        latitude={coordinates.latitude}
-        longitude={coordinates.longitude}
-      />
-      <WeatherAlerts
-        latitude={coordinates.latitude}
-        longitude={coordinates.longitude}
-      />
+      {coordinates.latitude && coordinates.longitude && (
+        <div className="info-section">
+          <WeatherAlerts
+            latitude={coordinates.latitude}
+            longitude={coordinates.longitude}
+          />
+          <NearbyGasStations
+            latitude={coordinates.latitude}
+            longitude={coordinates.longitude}
+          />
+        </div>
+      )}
     </div>
   );
 };

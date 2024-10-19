@@ -42,11 +42,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
     fetchGasStations();
   }, [latitude, longitude]);
 
-  if (!latitude || !longitude) {
-    return <div>Nearby Gas Stations</div>; // Placeholder if no coordinates are available
-  }
-
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading nearby gas stations...</div>;
   if (error) return <div>{error}</div>;
 
   // Filter out stations without valid coordinates
@@ -55,7 +51,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
   );
 
   return (
-    <div>
+    <article>
       <h2>Nearby Gas Stations</h2>
       {validStations.length > 0 ? (
         <ul>
@@ -65,7 +61,6 @@ const NearbyGasStations = ({ latitude, longitude }) => {
               <p>
                 {station.lat}, {station.lon}
               </p>
-              {/* Embed Google Maps iframe */}
               <iframe
                 width="300"
                 height="200"
@@ -81,7 +76,7 @@ const NearbyGasStations = ({ latitude, longitude }) => {
       ) : (
         <p>No gas stations found for this location.</p>
       )}
-    </div>
+    </article>
   );
 };
 

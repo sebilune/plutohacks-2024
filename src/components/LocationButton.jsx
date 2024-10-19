@@ -13,7 +13,7 @@ const LocationButton = ({ onLocationRetrieved, className }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          onLocationRetrieved(latitude, longitude); // Pass to parent component
+          onLocationRetrieved(latitude, longitude); // Pass coordinates up to parent component
           setLoadingLocation(false);
         },
         () => {
@@ -40,6 +40,7 @@ const LocationButton = ({ onLocationRetrieved, className }) => {
     </div>
   );
 };
+
 LocationButton.propTypes = {
   onLocationRetrieved: PropTypes.func.isRequired,
   className: PropTypes.string,

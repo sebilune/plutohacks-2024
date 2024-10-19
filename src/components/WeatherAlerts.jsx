@@ -35,15 +35,11 @@ const WeatherAlerts = ({ latitude, longitude }) => {
     getWeatherAlerts();
   }, [latitude, longitude, apiKey]);
 
-  if (!latitude || !longitude) {
-    return <div>Weather Alerts</div>; // Placeholder if no coordinates are available
-  }
-
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading weather alerts...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <article>
       <h2>Severe Weather Alerts</h2>
       {alerts.length > 0 ? (
         alerts.map((alert, index) => (
@@ -70,7 +66,7 @@ const WeatherAlerts = ({ latitude, longitude }) => {
       ) : (
         <p>No weather alerts available for this location.</p>
       )}
-    </div>
+    </article>
   );
 };
 
