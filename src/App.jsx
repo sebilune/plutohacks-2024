@@ -24,8 +24,8 @@ function App() {
       </div>
       <div className="container">
         <Routes>
-          <Route path="*" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} /> {/* Add Home route */}
+          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/summary" element={<Summary />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/disaster-bot" element={<DisasterBot />} />
