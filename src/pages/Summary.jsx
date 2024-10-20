@@ -47,13 +47,13 @@ const Summary = () => {
               />
               <hr />
               <Accordion title="Challenges ⚡" description={
-              <p>One of the biggest challenges we faced at the beginning of our project was choosing the right idea to move forward with. As a team, we had two very different concepts on the table. The first was the project we eventually chose, while the second involved creating a system with offline capabilities to assist with hurricane relief efforts. This system would use QR codes to help supply drivers deliver packages to specific locations, which seemed innovative but also came with significant risks.
-              <br /><br />If we encountered major issues or ran out of time, we realized we wouldn&apos;t have a strong foundation for the project. The offline concept was appealing, but its complexity could leave us without a solid deliverable if things didn&apos;t go as planned. 
+              <p>One of the biggest challenges we faced at the beginning of our project was choosing the right idea to move forward with. As a team, we had two very different concepts on the table. The first was the project we eventually chose, while the second involved creating a system with offline capabilities to assist with hurricane relief efforts. This system would use QR codes to help delivery drivers distrubute packages to specific locations, which seemed innovative but also came with significant risks.
+              <br /><br />If we encountered major issues or ran out of time, we realized we wouldn&apos;t have a strong foundation for the project. The offline concept was appealing, but with limited time it could leave us without a solid end product if things didn&apos;t go as planned. 
               <br /><br />In the end, we decided to go with the first idea because it felt like the safer option. This choice allowed us to build a strong foundation for our project, ensuring that even if we faced time constraints, we could still implement various components and have something solid to present.
               </p>} />
               <hr />
-              <Accordion title="Finale 🎉" description={<p>Our app serves as a vital resource for individuals facing the threat of hurricanes. We aim to enhance community preparedness and resilience, ensuring that everyone has the information they need to stay safe during significant weather events, potentially saving lives.
-              <br /><br />Working together as a team has been a rewarding experience, and we are grateful for everyone’s important contributions to this project. Despite the limited time, we made the most of every moment and feel confident that our app can make a positive impact on others." 
+              <Accordion title="Finale 🎉" description={<p>Our app serves as a vital resource for individuals facing the threat of hurricanes. We aim to enhance community preparedness, ensuring that everyone has the information they need to stay safe during significant weather events, potentially saving lives.
+              <br /><br />Working together as a team has been a rewarding experience, and we are grateful for everyone&apos;s important contributions to this project. Despite the limited time, we made the most of every moment and feel confident that our app can make a positive impact on others.
               </p>}/>
             </article>
           </div>
